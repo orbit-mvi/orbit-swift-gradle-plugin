@@ -1,0 +1,64 @@
+#
+# Copyright 2021 Mikołaj Leszczyński & Appmattus Limited
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+Pod::Spec.new do |spec|
+    spec.name                     = '{{specName}}'
+    spec.version                  = '{{version}}'
+    spec.homepage                 = '{{homepage}}'
+    spec.source                   = { :git => "Not Published", :tag => "Cocoapods/#{spec.name}/#{spec.version}" }
+    spec.authors                  = '{{authors}}'
+    spec.license                  = '{{license}}'
+    spec.summary                  = '{{summary}}'
+
+    spec.source_files             = "{{frameworkDir}}/{{specName}}/**/*.{h,m,swift}"
+
+    spec.swift_version            = '5.0'
+{{#deploymentTargets}}
+    spec.{{name}}.deployment_target = '{{deploymentTarget}}'
+{{/deploymentTargets}}
+
+{{#dependencies}}
+    spec.dependency '{{name}}'{{versionSuffix}}
+{{/dependencies}}
+
+    spec.pod_target_xcconfig = {
+        'KOTLIN_TARGET[sdk=iphonesimulator*]' => 'ios_x64',
+        'KOTLIN_TARGET[sdk=iphoneos*]' => '{{iosTarget}}',
+        'KOTLIN_TARGET[sdk=watchsimulator*]' => 'watchos_x64',
+        'KOTLIN_TARGET[sdk=watchos*]' => '{{watchosTarget}}',
+        'KOTLIN_TARGET[sdk=appletvsimulator*]' => 'tvos_x64',
+        'KOTLIN_TARGET[sdk=appletvos*]' => 'tvos_arm64',
+        'KOTLIN_TARGET[sdk=macosx*]' => 'macos_x64'
+    }
+
+    spec.script_phases = [
+        {
+            :name => 'Build {{specName}}',
+            :execution_position => :before_compile,
+            :shell_path => '/bin/sh',
+            :script => <<-SCRIPT
+                set -ev
+                REPO_ROOT="$PODS_TARGET_SRCROOT"
+                "{{gradleCommand}}" -p "$REPO_ROOT" {{syncTask}} \
+                    -P{{propertyTarget}}=$KOTLIN_TARGET \
+                    -P{{propertyConfig}}=$CONFIGURATION \
+                    -P{{propertyCflags}}="$OTHER_CFLAGS" \
+                    -P{{propertyHeaderPaths}}="$HEADER_SEARCH_PATHS" \
+                    -P{{propertyFrameworkPaths}}="$FRAMEWORK_SEARCH_PATHS"
+            SCRIPT
+        }
+    ]
+end
