@@ -35,8 +35,8 @@ pluginBundle {
     tags = listOf("kotlin", "mvi", "swift", "multiplatform")
 }
 
-version = (System.getenv("GITHUB_REF") ?: System.getProperty("GITHUB_REF"))
-    ?.replaceFirst("refs/tags/", "") ?: "unspecified"
+version = "0.1.1" //(System.getenv("GITHUB_REF") ?: System.getProperty("GITHUB_REF"))
+    //?.replaceFirst("refs/tags/", "") ?: "unspecified"
 group = "org.orbitmvi"
 
 repositories {
