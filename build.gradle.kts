@@ -19,6 +19,8 @@ gradlePlugin {
     plugins {
         create("org.orbit-mvi.orbit.swift") {
             id = "org.orbit-mvi.orbit.swift"
+            displayName = "orbitswiftplugin"
+            description = "Generate swift code for Orbit Multiplatform"
             implementationClass = "org.orbitmvi.orbit.swift.OrbitSwiftPlugin"
         }
     }
@@ -27,18 +29,10 @@ gradlePlugin {
 pluginBundle {
     website = "https://github.com/orbit-mvi/orbit-swift-gradle-plugin"
     vcsUrl = "https://github.com/orbit-mvi/orbit-swift-gradle-plugin.git"
-
-    (plugins) {
-        "org.orbit-mvi.orbit.swift" {
-            displayName = "orbitswiftplugin"
-            description = "Generate swift code for Orbit Multiplatform"
-            tags = listOf("kotlin", "mvi", "swift", "multiplatform")
-            //version = version
-        }
-    }
+    tags = listOf("kotlin", "mvi", "swift", "multiplatform")
 }
 
-version = "0.1.2" //(System.getenv("GITHUB_REF") ?: System.getProperty("GITHUB_REF"))
+version = "0.1.1" //(System.getenv("GITHUB_REF") ?: System.getProperty("GITHUB_REF"))
 //?.replaceFirst("refs/tags/", "") ?: "unspecified"
 group = "org.orbitmvi"
 
