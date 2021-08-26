@@ -10,7 +10,7 @@ buildscript {
 plugins {
     `kotlin-dsl`
     `java-gradle-plugin`
-    id("com.gradle.plugin-publish") version "0.14.0"
+    id("com.gradle.plugin-publish") version "0.15.0"
 }
 
 apply(plugin = "org.jetbrains.kotlin.jvm")
