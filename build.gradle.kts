@@ -13,15 +13,15 @@ buildscript {
 plugins {
     `kotlin-dsl`
     `java-gradle-plugin`
-    id("com.gradle.plugin-publish") version "0.12.0"
+    id("com.gradle.plugin-publish") version "0.14.0"
 }
 
 apply(plugin = "org.jetbrains.kotlin.jvm")
 
 gradlePlugin {
     plugins {
-        create("org.orbitmvi.orbit.swift") {
-            id = "org.orbitmvi.orbit.swift"
+        create("org.orbit-mvi.orbit.swift") {
+            id = "org.orbit-mvi.orbit.swift"
             displayName = "orbitswiftplugin"
             description = "Generate swift code for Orbit Multiplatform"
             implementationClass = "org.orbitmvi.orbit.swift.OrbitSwiftPlugin"
