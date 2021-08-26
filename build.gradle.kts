@@ -5,9 +5,6 @@ buildscript {
         google()
         jcenter()
     }
-    dependencies {
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.21")
-    }
 }
 
 plugins {
@@ -36,7 +33,7 @@ pluginBundle {
 }
 
 version = "0.1.1" //(System.getenv("GITHUB_REF") ?: System.getProperty("GITHUB_REF"))
-    //?.replaceFirst("refs/tags/", "") ?: "unspecified"
+//?.replaceFirst("refs/tags/", "") ?: "unspecified"
 group = "org.orbitmvi"
 
 repositories {
