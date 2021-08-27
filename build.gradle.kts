@@ -30,11 +30,16 @@ pluginBundle {
     website = "https://github.com/orbit-mvi/orbit-swift-gradle-plugin"
     vcsUrl = "https://github.com/orbit-mvi/orbit-swift-gradle-plugin.git"
     tags = listOf("kotlin", "mvi", "swift", "multiplatform")
+
+    mavenCoordinates {
+        groupId = "org.orbit-mvi"
+        artifactId = "org.orbit-mvi.orbit.swift"
+    }
 }
 
 version = (System.getenv("GITHUB_REF") ?: System.getProperty("GITHUB_REF"))
     ?.replaceFirst("refs/tags/", "") ?: "unspecified"
-group = "org.orbitmvi"
+group = "org.orbit-mvi"
 
 repositories {
     google()
