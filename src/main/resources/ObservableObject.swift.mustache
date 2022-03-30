@@ -18,7 +18,7 @@ import SwiftUI
 import Combine
 import {{frameworkName}}
 
-public class {{className}}StateObject : ObservableObject {
+public class {{className}}ObservableObject : ObservableObject {
 
 {{#hasState}}    @Published public private(set) var state: {{stateType}}
 {{/hasState}}{{#hasSideEffect}}    public private(set) var sideEffect: AnyPublisher<{{sideEffectType}}, Never>
@@ -46,7 +46,7 @@ public class {{className}}StateObject : ObservableObject {
 }
 
 public extension {{className}} {
-    func asStateObject() -> {{className}}StateObject {
-        return {{className}}StateObject(wrapped: self)
+    func asObservableObject() -> {{className}}ObservableObject {
+        return {{className}}ObservableObject(wrapped: self)
     }
 }
