@@ -24,7 +24,7 @@ import kotlinx.metadata.KmClass
 import kotlinx.metadata.KmClassifier
 import kotlinx.metadata.KmType
 
-class StateObjectProcessor : Processor {
+class ObservableObjectProcessor : Processor {
 
     override fun visitClass(processorContext: ProcessorContext, clazz: KmClass) {
 
@@ -67,7 +67,7 @@ class StateObjectProcessor : Processor {
             )
             val outputData = template.execute(data)
 
-            File(processorContext.outputDir, "${classSimpleName}StateObject.swift").apply {
+            File(processorContext.outputDir, "${classSimpleName}ObservableObject.swift").apply {
                 createNewFile()
                 writeText(outputData)
             }
@@ -79,6 +79,6 @@ class StateObjectProcessor : Processor {
 
     companion object {
         private val template: Template = Mustache.compiler()
-            .compile(StateObjectProcessor::class.java.classLoader.getResource("stateObject.swift.mustache")!!.readText())
+            .compile(ObservableObjectProcessor::class.java.classLoader.getResource("ObservableObject.swift.mustache")!!.readText())
     }
 }
