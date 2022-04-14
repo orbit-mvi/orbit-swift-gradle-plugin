@@ -51,7 +51,7 @@ private struct FlowPublisher<T: Any>: Publisher {
 
             job = SubscribeKt.subscribe(
                     flow,
-                    onEach: { position in if let position = position as? T { _ = subscriber.receive(position) }},
+                    onEach: { value in if let value = value as? T { _ = subscriber.receive(value) }},
                     onComplete: { subscriber.receive(completion: .finished) },
                     onThrow: { error in debugPrint(error) }
             )
