@@ -28,7 +28,6 @@ import org.jetbrains.kotlin.gradle.plugin.cocoapods.CocoapodsExtension
 import org.jetbrains.kotlin.gradle.plugin.cocoapods.KotlinCocoapodsPlugin
 import org.jetbrains.kotlin.gradle.plugin.mpp.Framework
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
-import org.jetbrains.kotlin.konan.target.KonanTarget
 import org.orbitmvi.orbit.swift.feature.ProcessorContext
 
 class OrbitSwiftPlugin : Plugin<Project> {
@@ -101,21 +100,9 @@ class OrbitSwiftPlugin : Plugin<Project> {
         framework: Framework,
         orbitTask: TaskProvider<GenerateOrbitSwiftTask>
     ) {
-        val requestedTargetName = project.findProperty(KotlinCocoapodsPlugin.TARGET_PROPERTY)?.toString()
         val requestedBuildType = project.findProperty(KotlinCocoapodsPlugin.CONFIGURATION_PROPERTY)?.toString()?.toUpperCase()
 
-        // We create a fat framework only for device platforms which have several
-        // device architectures: iosArm64, iosArm32, watchosArm32 and watchosArm64.
-        val matchesTarget = when (requestedTargetName) {
-            KotlinCocoapodsPlugin.KOTLIN_TARGET_FOR_IOS_DEVICE -> listOf(KonanTarget.IOS_ARM64.name, KonanTarget.IOS_ARM32.name)
-            KotlinCocoapodsPlugin.KOTLIN_TARGET_FOR_WATCHOS_DEVICE -> listOf(
-                KonanTarget.WATCHOS_ARM32.name,
-                KonanTarget.WATCHOS_ARM64.name
-            )
-            // A request parameter can be comma separated list of targets.
-            else -> requestedTargetName?.split(",")?.toList() ?: emptyList()
-        }.contains(framework.linkTask.target)
-
+        val matchesTarget = project.getNativeTargets().any { it.name == framework.linkTask.target }
         val matchesBuildType = framework.buildType.name == requestedBuildType
 
         if (matchesTarget && matchesBuildType) {

@@ -10,10 +10,9 @@ buildscript {
 plugins {
     `kotlin-dsl`
     `java-gradle-plugin`
+    kotlin("jvm") version "1.7.10"
     id("com.gradle.plugin-publish") version "0.15.0"
 }
-
-apply(plugin = "org.jetbrains.kotlin.jvm")
 
 gradlePlugin {
     plugins {
@@ -49,11 +48,11 @@ repositories {
 
 dependencies {
     compileOnly(gradleApi())
-    compileOnly("org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.21")
+    compileOnly("org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.10")
 
-    implementation(kotlin("stdlib-jdk8"))
-    implementation("org.jetbrains.kotlinx:kotlinx-metadata-klib:0.0.1")
-    implementation("org.jetbrains.kotlin:kotlin-compiler-embeddable:1.5.21")
+    implementation(kotlin("stdlib-jdk8", "1.7.10"))
+    implementation("org.jetbrains.kotlinx:kotlinx-metadata-klib:0.0.3")
+    implementation("org.jetbrains.kotlin:kotlin-compiler-embeddable:1.7.10")
     implementation("com.samskivert:jmustache:1.15")
 }
 

@@ -105,8 +105,6 @@ open class PodspecTask : DefaultTask() {
             "license" to license.getOrEmpty(),
             "summary" to summary.getOrEmpty(),
             "frameworkDir" to project.buildDir.resolve("cocoapods/orbit").relativeTo(outputFileProvider.get().parentFile).path,
-            "iosTarget" to KotlinCocoapodsPlugin.KOTLIN_TARGET_FOR_IOS_DEVICE,
-            "watchosTarget" to KotlinCocoapodsPlugin.KOTLIN_TARGET_FOR_WATCHOS_DEVICE,
             "deploymentTargets" to listOf(ios, osx, tvos, watchos).map { it.get() }.filter { it.deploymentTarget != null }.map {
                 mapOf(
                     "name" to it.name,
@@ -121,7 +119,8 @@ open class PodspecTask : DefaultTask() {
             },
             "gradleCommand" to "\$REPO_ROOT/${gradleWrapper.toRelativeString(project.projectDir)}",
             "syncTask" to "${project.path}:syncOrbitSwift",
-            "propertyTarget" to KotlinCocoapodsPlugin.TARGET_PROPERTY,
+            "propertyPlatform" to KotlinCocoapodsPlugin.PLATFORM_PROPERTY,
+            "propertyArchs" to KotlinCocoapodsPlugin.ARCHS_PROPERTY,
             "propertyConfig" to KotlinCocoapodsPlugin.CONFIGURATION_PROPERTY,
             "propertyCflags" to KotlinCocoapodsPlugin.CFLAGS_PROPERTY,
             "propertyHeaderPaths" to KotlinCocoapodsPlugin.HEADER_PATHS_PROPERTY,
