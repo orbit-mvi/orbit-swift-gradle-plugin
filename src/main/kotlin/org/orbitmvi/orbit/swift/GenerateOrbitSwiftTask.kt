@@ -16,9 +16,6 @@
 
 package org.orbitmvi.orbit.swift
 
-import java.io.File
-import java.nio.file.Files
-import javax.inject.Inject
 import kotlinx.metadata.klib.KlibModuleMetadata
 import org.gradle.api.DefaultTask
 import org.gradle.api.logging.Logger
@@ -32,15 +29,18 @@ import org.orbitmvi.orbit.swift.feature.Processor
 import org.orbitmvi.orbit.swift.feature.ProcessorContext
 import org.orbitmvi.orbit.swift.feature.PublisherProcessor
 import org.orbitmvi.orbit.swift.feature.StateObjectProcessor
+import java.io.File
+import java.nio.file.Files
+import javax.inject.Inject
 
 internal open class GenerateOrbitSwiftTask @Inject constructor(
     private val processorContext: ProcessorContext
 ) : DefaultTask() {
 
     @get:InputFiles
-    internal val inputFilesProvider: Provider<List<File>>
+    internal val inputFilesProvider: Provider<Iterable<File>>
         get() = project.provider {
-            processorContext.framework.linkTask.exportLibraries + processorContext.framework.linkTask.intermediateLibrary.get()
+            processorContext.framework.linkTask.exportLibraries + processorContext.framework.linkTask.sources
         }
 
     @get:OutputDirectory
